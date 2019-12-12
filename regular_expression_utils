@@ -1,0 +1,17 @@
+<property>
+        <name>re_patterns_for_clean_html</name>
+        <value>
+            <![CDATA[
+                [
+                (re.compile(r"<(script|style).*?>.*?(</\1>)|<!--(.*?)-->", re.IGNORECASE | re.DOTALL), ''),
+                (re.compile(r"[\s]+|&nbsp;"), ' '),
+                (re.compile(r"</?(p|div|br).*?>", re.IGNORECASE | re.DOTALL), '\n'),
+                (re.compile(r"</?(?:html|head|meta|title|body|table|div|span|font|b|td|tr|u|big|center|form|hr|img|li|th|ul|tt|strong|strike|small|ol|menu|h1|h2|h3|h4|h5|h6|dt|dl|dd).*?>", re.DOTALL), ''),
+                (re.compile("[^\S\n]+", re.UNICODE), ' '),
+                (re.compile("(\n )"), '\n'),
+                (re.compile("\n\n+"), '\n\n'),
+                ]
+            ]]>
+        </value>
+        <description>清洗HTML标签的正则表达式</description>
+    </property>
