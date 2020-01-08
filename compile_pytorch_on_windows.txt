@@ -1,11 +1,11 @@
 准备环境：vs2017(勾选基本组件和VC++ 2017 version 15.4 v14.11 toolset，以具体下载版本为准，下载大约3G，安装好占空间大约16G), cmake==3.16.2， cuda10.0+配套cudnn7.6。
 1. cmd打开命令行
 # 以安装的具体路径为准，特别注意14.14.26428这个数字,下文要用到，必须和具体安装路径一致，MSVC下面有多个文件夹，选一个能找到c1.exe的即可
-2. set CUDAHOSTCXX=C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.14.26428\bin\HostX64\x64\cl.exe
+2. set CUDAHOSTCXX=C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.16.27023\bin\HostX64\x64\cl.exe
 # 通过执行cmake -help, 查看可选的Generators，本例选择Visual Studio 15 2017
 3. set USE_NINJA=OFF
    set CMAKE_GENERATOR=Visual Studio 15 2017
-4. set CMAKE_GENERATOR_TOOLSET_VERSION=14.14 # 根据步骤2中的14.14.26428，设置相应的版本号
+4. set CMAKE_GENERATOR_TOOLSET_VERSION=14.16 # 根据步骤2中的14.14.26428，设置相应的版本号
    set DISTUTILS_USE_SDK=1
    for /f "usebackq tokens=*" %i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -version [15^,16^) -products * -latest -property installationPath`) do call "%i\VC\Auxiliary\Build\vcvarsall.bat" x64 -vcvars_ver=%CMAKE_GENERATOR_TOOLSET_VERSION%
 # cd 到pytorch文件夹下，执行：
