@@ -1,0 +1,63 @@
+import numpy as np
+from scipy import stats
+
+
+def em_single(priors, observations):
+    '''
+    根据上一次的参数值theta和观察值，计算出新的参数值
+    :param priors:[theta_A, theta_B, theta_C
+    :param observations:[m x n matrix]
+    :return:[new_theta_A, new_theta_B, new_theta_C
+    '''
+    # 对每一行的观察值而言，可以认为它是有两部分组成，一部分是来自于A, 一部分来自于 B, 例如 5 H, 5 T, 可以通过theta_A, theta_B, theta_C,计算出 A贡献了（2.2H, 2.2T）， B贡献了 (2.8H, 2.8T)，
+    # 遍历所有行的观察值后，都可以计算出类似的结果，将他们的和存储在counts中，这是E步
+    #
+    # 最终的new_theta_A, new_theta_B, new_theta_C根据counts中的值计算出，这是M步
+    counts = {'A': {'H': 0, 'T': 0}, 'B': {'H': 0, 'T': 0}}
+    theta_A, theta_B, theta_C = priors[0], priors[1], priors[2]
+
+    weights_As = []
+    for observation in observations:
+        len_observation = len(observation)
+        num_heads = observation.sum()
+        num_tails = len_observation - num_heads
+        # pmf: 计算二项式分布中 len_observation次实验，发生num_heads次的概率， theta为每次实验事件发生的概率
+        contribution_A = theta_C * stats.binom.pmf(num_heads, len_observation, theta_A)
+        contribution_B = (1 - theta_C) * stats.binom.pmf(num_heads, len_observation, theta_B)
+        weight_A = contribution_A / (contribution_A + contribution_B)
+        weight_B = contribution_B / (contribution_A + contribution_B)
+
+        weights_As.append(weight_A)
+        counts['A']['H'] += weight_A * num_heads
+        counts['A']['T'] += weight_A * num_tails
+        counts['B']['H'] += weight_B * num_heads
+        counts['B']['T'] += weight_B * num_tails
+
+    new_theta_C = 1.0 * sum(weights_As) / len(weights_As)
+    new_theta_A = counts['A']['H'] / (counts['A']['H'] + counts['A']['T'])
+    new_theta_B = counts['B']['H'] / (counts['B']['H'] + counts['B']['T'])
+    return new_theta_A, new_theta_B, new_theta_C
+
+
+def em(observations, prior, tol=1e-6, iterations=100000):
+    import math
+    iteration = 0
+    new_prior = prior
+    while iteration < iterations:
+        new_prior = em_single(prior, observations)
+        delta_change = np.abs(prior[0] - new_prior[0])
+        if delta_change < tol:
+            break
+        else:
+            prior = new_prior
+            iteration += 1
+    return [new_prior, iteration]
+
+if __name__ == '__main__':
+    observations = np.array([[1, 0, 0, 0, 1, 1, 0, 1, 0, 1],
+                         [1, 1, 1, 1, 0, 1, 1, 1, 1, 1],
+                         [1, 0, 1, 1, 1, 1, 1, 0, 1, 1],
+                         [1, 0, 1, 0, 0, 0, 1, 1, 0, 0],
+                         [0, 1, 1, 1, 0, 1, 1, 1, 0, 1]])
+
+    print(em(observations, [0.5, 0.4, 0.8]))
