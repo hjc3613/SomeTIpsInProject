@@ -10,3 +10,13 @@ $mongorestore --host databasehost:98761 --username restoreuser
 
 #  清空mongo数据库
 mongo --quiet --eval 'db.getMongo().getDBNames().forEach(function(i){db.getSiblingDB(i).dropDatabase()})'
+
+# rsync命令
+这会将文件夹A放入文件夹B：
+rsync -avu --delete "/home/user/A" "/home/user/B" 
+如果希望文件夹A和B的内容相同，则将其/home/user/A/（带有斜线）作为源。这不占用文件夹A，而是所有内容，并将其放入文件夹B。像这样：
+rsync -avu --delete "/home/user/A/" "/home/user/B"
+-a 进行同步以保留所有文件系统属性
+-v 冗长地跑
+-u 仅复制修改时间较新的文件（如果时间相等，则复制大小不同的文件）
+--delete 删除目标文件夹中源文件中不存在的文件
