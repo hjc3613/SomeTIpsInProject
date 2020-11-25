@@ -20,3 +20,7 @@ rsync -avu --delete "/home/user/A/" "/home/user/B"
 -v 冗长地跑
 -u 仅复制修改时间较新的文件（如果时间相等，则复制大小不同的文件）
 --delete 删除目标文件夹中源文件中不存在的文件
+
+# mysql 8.0允许所有ip访问
+mysql> CREATE USER 'root'@'%' IDENTIFIED BY 'root';
+mysql> GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
