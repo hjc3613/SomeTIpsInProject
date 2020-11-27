@@ -24,3 +24,7 @@ rsync -avu --delete "/home/user/A/" "/home/user/B"
 # mysql 8.0允许所有ip访问
 mysql> CREATE USER 'root'@'%' IDENTIFIED BY 'root';
 mysql> GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
+
+# 
+hive-hdfs-spark踩坑记：提交pyspark程序时，遇到bug:Unable to instantiate org.apache.hadoop.hive.ql.metadata.SessionHiveMetaStoreClient,因为spark通过hive-site.xml去读取mysql,
+因此要将hive/lib/下的mysql-connector*.jar 拷贝到spark/jars/下边。同时要开启hive meta service:hive --service metastore。hive中的hive-site.xml也要放到spark/conf/里面，否则会报错：database *** not found
