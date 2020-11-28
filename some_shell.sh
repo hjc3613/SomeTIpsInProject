@@ -29,3 +29,5 @@ mysql> GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
 hive-hdfs-spark踩坑记：提交pyspark程序时，遇到bug:Unable to instantiate org.apache.hadoop.hive.ql.metadata.SessionHiveMetaStoreClient,因为spark通过hive-site.xml去读取mysql,
 因此要将hive/lib/下的mysql-connector*.jar 拷贝到spark/jars/下边。同时要开启hive meta service:hive --service metastore。hive中的hive-site.xml也要放到spark/conf/里面，否则会报错：database *** not found
 spark-submit --master yarn --deploy-mode cluster --conf spark.yarn.dist.archives=hdfs://localhost:9000/python_env/python36.zip#py3env --conf spark.pyspark.python=./py3env/python36/bin/python3  /home/hujunchao/Apps/spark-2.4.7-bin-hadoop2.7/examples/src/main/python/pi.py 10
+
+pyspark-shell踩坑：讲hive/lib/hive-hcatalog-core-2.3.7.jar 拷贝到 spark/jars/下，开启hive meta service： --service metastore
