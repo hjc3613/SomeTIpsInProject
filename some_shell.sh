@@ -33,6 +33,19 @@ spark-submit --master yarn --deploy-mode cluster --conf spark.yarn.dist.archives
 pyspark-shell踩坑：将hive/lib/hive-hcatalog-core-2.3.7.jar 拷贝到 spark/jars/下，开启hive meta service： --service metastore
 
 ################# python re.sub 使用 ####################################
+
+##################################################happybase thrift 连接hbase 坑################################################
+   在hbase-site.xml中添加如下配置，因为默认的有链接时长限制
+   <property>
+    <name>hbase.thrift.server.socket.read.timeout</name>
+    <value>864000000</value>
+    <description>eg:milisecond</description>
+  </property>
+
+  <property>
+    <name>hbase.thrift.connection.max-idletime</name>
+    <value>864000000</value>
+  </property>
 string = 'A23G4HFD567'
 print(re.sub('(\d+)', '\g<1>  ', string, count=2))#A23  G4  HFD567
 
