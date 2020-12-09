@@ -4,12 +4,26 @@ convmv -f GBK -t utf8 --notest -r .
 # 批量修改文件名字
 find . -type f -name "* *.xml" -exec bash -c 'mv "$0" "${0// /_}"' {} \;
 
+#################################################mongo问题############################################################
 # mongo 从硬盘恢复数据 use admin;db.auth('usename', 'passwd')
 $mongorestore --host databasehost:98761 --username restoreuser
 --password restorepwd --authenticationDatabase admin --db targetdb ./path/to/dump
 
 #  清空mongo数据库
 mongo --quiet --eval 'db.getMongo().getDBNames().forEach(function(i){db.getSiblingDB(i).dropDatabase()})'
+pymongo admin 认证
+import pymongo 
+client = pymongo.MongoClient('127.0.0.1', 27017)
+ 
+#连接admin数据库,账号密码认证
+db = client.admin
+db.authenticate("用户名", "密码"，"认证机制【可省略】")
+ 
+#认证结束
+db = client.mydb   # mydb数据库
+col = db['mycol']  # mycol集合
+
+################################################################################################################
 
 # rsync命令
 这会将文件夹A放入文件夹B：
@@ -33,19 +47,6 @@ spark-submit --master yarn --deploy-mode cluster --conf spark.yarn.dist.archives
 pyspark-shell踩坑：将hive/lib/hive-hcatalog-core-2.3.7.jar 拷贝到 spark/jars/下，开启hive meta service： --service metastore
 
 ################# python re.sub 使用 ####################################
-
-##################################################happybase thrift 连接hbase 坑################################################
-   在hbase-site.xml中添加如下配置，因为默认的有链接时长限制
-   <property>
-    <name>hbase.thrift.server.socket.read.timeout</name>
-    <value>864000000</value>
-    <description>eg:milisecond</description>
-  </property>
-
-  <property>
-    <name>hbase.thrift.connection.max-idletime</name>
-    <value>864000000</value>
-  </property>
 string = 'A23G4HFD567'
 print(re.sub('(\d+)', '\g<1>  ', string, count=2))#A23  G4  HFD567
 
@@ -58,5 +59,18 @@ def double(matched):
 
 string = 'A23G4HFD567'
 print(re.sub('(?P<value>\d+)', double, string))
+##################################################happybase thrift 连接hbase 坑################################################
+   在hbase-site.xml中添加如下配置，因为默认的有链接时长限制
+   <property>
+    <name>hbase.thrift.server.socket.read.timeout</name>
+    <value>864000000</value>
+    <description>eg:milisecond</description>
+  </property>
+
+  <property>
+    <name>hbase.thrift.connection.max-idletime</name>
+    <value>864000000</value>
+  </property>
+
 
 ##########################################################################
