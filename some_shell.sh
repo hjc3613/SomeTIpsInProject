@@ -81,4 +81,11 @@ print(re.sub('(?P<value>\d+)', double, string))
   </property>
 
 
-##########################################################################
+##############################Python 安装celery ############################################
+apt-get install -y --no-install-recommends \
+        autoconf \
+        automake \
+        pkg-config \
+        libtool
+        
+pip install "celery[librabbitmq,redis,msgpack]"
