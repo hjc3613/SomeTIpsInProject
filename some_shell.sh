@@ -42,6 +42,10 @@ uniq -c 打印去重后的行，并附带重复数量，单一行页包括在内
 uniq 单独使用，仅仅是去重
 
 awk 最后一列 print $NF
+
+# linux string替换某些字符
+string='abcdefg'
+echo ${string//cd/**}
 ########################################################## mysql #########################################################################
 # mysql 8.0允许所有ip访问
 mysql> CREATE USER 'root'@'%' IDENTIFIED BY 'root';
