@@ -1,0 +1,74 @@
+pandas DataFrame.str.contrains, split方法传入的是正则表达式，当用到 | () 时，注意转义一下
+
+pandas concate(axis=?) axis=0时，垂直合并，列数不变， axis=1时，水平合并，类似于join
+
+使用collections.defaultdict(dict)时，如果通过 default_dict['a']方式查询了一个不存在的 'a' 键，则会在原来的对象里面自动创建并插入一个{'a':{}}键值对，改变原来的内容，当这个影响比较大时，应采用 default_dict.get('a', {})方式查询
+
+
+python os.path.dirname(os.path.abspath(__file__))，dianame仅仅是移除最后一个路径片段，但是python中 __file__是有一些坑的,在不同的目录下运行程序，会得到不同的结果，安全的用法是dirname(abspath(__file__))
+
+pandas.DataFrame loc vs iloc： loc 只能通过行名、列名、布尔值 来索引数据，iloc只能通过行 列 的index值来索引数据， eg: 
+df.loc[['a', 'b'], ['x', 'y']], 
+df.iloc[[1:3], [1:4]], 
+df.loc[df['a'].duplicated()]# 过滤出df中a列重复的行
+
+pandas DataFrame.apply(..., result_type='expand') result_type='expand'用于处理多个列的情况
+
+pandas DataFrame.groupby.apply 可以达到agg的效果，但是返回的是Series
+pandas DataFrame.groupby.agg 聚合操作返回的是DataFrame
+
+linux之uniq使用：
+uniq [-icu]
+选项与参数：
+-i   ：忽略大小写字符的不同；
+-c  ：进行计数
+-u  ：只显示唯一的行（即行数等于1的）
+-d  ：只显示重复的行（即行数大于1的）
+uniq不带参数时，只是去重
+uniq -dc 显示行数大于1的行
+
+BeautifulSoup解析中文乱码？利用chardet检测出网页编码，然后赋值：soup.encoding = {检测出来的编码类型}
+
+bash 进行数学运算 echo $[100+4] # updated
+                  echo $((717*50)) # recommened
+
+netstat -nltp | grep :80 用来检测监听端口80的程序
+
+sklearn.metric 计算precision, recall, f, accuracy时，针对多标签分类，有一个参数叫做average可选值为[micro, macro, sample]，micro和macro都是：
+  1）先对每个标签计算混淆矩阵，得到每个标签的TP, 假设为：[0, 1, 1, 0, 0, 0]
+  2）再获取 真实标签在各个标签上的正样本数目,    假设为：[1, 1, 2, 1, 0, 0]
+  3）再获取 预测结果在各个标签上的正样本数目,    假设为：[2, 3, 2, 0, 0, 1]
+  micro是先横向计算sum，得到 TP, true, pred, precision=TP/pred, recall=TP/true
+  macro是先竖向计算precision, recall, f,即 precision = 1)/3), recall = 1)/2), f = ...  最终求三个指标的平均值
+sample不同于上两个，它是先在每个样本上计算p, r, f， 再在所有样本上求三个指标的平均值
+单标签分类的情况类似
+micro适用于类别不均衡的情况
+
+################################################################
+pickle attribute error
+这是因为自定义的类名无法在模块以为被是被，解决方案是要么在外模块导入自定义类，要么采用下边的方式自动查找类名，但是注意不要在不同模块间有变量名冲突，否则会自动查找失败
+import pickle
+from settings import Manager
+
+class CustomUnpickler(pickle.Unpickler):
+
+    def find_class(self, module, name):
+        try:
+            return super().find_class(__name__, name)
+        except AttributeError:
+            return super().find_class(module, name)
+
+pickle_data = CustomUnpickler(open('file_path.pkl', 'rb')).load()
+## No exception trying to get 'Manager'
+##############################################################
+
+如何安装cuda9.0, pytorch1.1, torchvision0.3
+Check if CUDA 9.0 is installed
+cat /usr/local/cuda/version.txt
+
+[For pip] Run pip install with specified version and -f
+pip install torch==1.1.0 torchvision==0.3.0 -f https://download.pytorch.org/whl/cu90/torch_stable.html
+
+Note: PyTorch only supports CUDA 9.0 up to 1.1.0. (Search torch- in https://download.pytorch.org/whl/cu90/torch_stable.html).
+
+You can also install PyTorch 1.0.1, 1.0.0, 0.4.1, 0.4.0., 0.3.1, 0.3.0, but not 1.2.0, 1.3.0, 1.3.1, 1.4.0, 1.5.0, 1.5.1, 1.6.0.
