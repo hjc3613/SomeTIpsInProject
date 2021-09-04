@@ -1,4 +1,17 @@
 #!/bin/sh
+
+git clone https://github.com/moses-smt/mosesdecoder.git
+git clone https://github.com/rsennrich/subword-nmt.git
+pip install jieba
+git clone https://github.com/pytorch/fairseq
+cd fairseq
+pip install --editable ./
+mkdir  -p nmt/data/v15news/result
+mkdir -p nmt/data/v15news/data-bin
+mkdir -p nmt/models/v15news/checkpoints
+mkdir -p nmt/utils
+
+
 src=zh
 tgt=en
 
