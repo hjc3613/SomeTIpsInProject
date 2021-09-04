@@ -77,7 +77,7 @@ fairseq-preprocess --source-lang ${src} --target-lang ${tgt} \
     --trainpref ${data_dir}/train --validpref ${data_dir}/valid --testpref ${data_dir}/test \
     --destdir ${data_dir}/data-bin
     
-# step 10 start training
+# step 10 start training，若无法使用GPU， 直接在命令行中执行，在shell脚本中运行会出现无法使用GPU的情况
 CUDA_VISIBLE_DEVICES=0,1,2,3 nohup fairseq-train ${data_dir}/data-bin --arch transformer \
 	--source-lang ${src} --target-lang ${tgt}  \
     --optimizer adam  --lr 0.001 --adam-betas '(0.9, 0.98)' \
