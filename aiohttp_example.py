@@ -10,7 +10,7 @@ async def concurrent_get(url, lst):
     tasks = []
     for item in lst:
       tasks.append(asyncio.create_task(fetch(client, url, item)))
-    return await asyncio.wait(tasks)
+    return await asyncio.wait(tasks)# or gather(*tasks)
   
   
 # 并发网络访问
