@@ -9,6 +9,7 @@
 
 #re_skip_cut_all = re.compile("[^a-zA-Z0-9+#\n]", re.U)
 
+# 。:00B0|Roman numerals:\u2160-\u217f|希腊字母:\u0391-\u03c9
 re_han_default = re.compile("([\u4E00-\u9FD5\u2160-\u216F\u0391-\u03c9\u00B0a-zA-Z0-9+#&\._\-%\(\)]+)", re.U)#change
 
 re_skip_default = re.compile("(\r\n|\s)", re.U)
