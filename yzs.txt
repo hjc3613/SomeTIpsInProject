@@ -1,0 +1,106 @@
+
+邮箱、git密码原始：Jvnchaodo2**
+
+doccano webserver --port 8000
+doccano task
+http://127.0.0.1:8000
+
+域内台式机IP：172.16.11.93
+密码：hjc123
+
+
+username neo4j, passwd neo4j2, 
+from pyneo import Graph
+g = Graph('bolt://10.10.10.231:7687', auth=(neo4j, neo4j2))
+
+10.128.3.145        端口：54123
+medical:unikg_5678
+root:uni_kg_234.
+
+mysql.db.server=10.128.3.56
+mysql.db.user=root
+mysql.db.password=KG-medical!2021
+
+10.128.3.106，port：54123
+medical：kg-medical
+root/uni_kg_234.
+
+10.128.3.56
+root/uni_kg_234.
+medical：kg-medical
+
+NAS账户密码
+hujunchao  IFOaMX
+
+更新登封医院医嘱理解服务，起因：化疗药应该为0，更新完本地配置后，同步到远程，同时将match_result_*也同步过去，重启服务，然后执行 curl -XPOST -H "Content-type:application/json;charset=utf-8" --data-ascii '{"hospitalId":"10008","admissionIds":[""]}' http://155.155.1.153:9001/api/updateOrderResult
+
+远程桌面
+用户名：71417617
+密码：$9bTNS8N
+
+// 理解单个医院
+http://10.128.3.106:9001/api/getOfflineQueries?hospitalId=*****
+
+//PICC日志问题排查
+cat audit.log | grep 'mishu_RDAA2022360600S0008691' |grep '{心脏彩色多普勒超声}' | awk.exe -F 'Step' '{print Step$2}'
+
+青岛市立医院VPN
+账号：liuyang
+密码：Aa18741351761
+手机号：18741351761
+
+picc远程桌面:
+姓名  胡俊超 帐号  71419460 密码
+JD5m%B#q
+
+
+VPN地址：https://vpn.shanhe.com
+yeesuanAI0113  Ss773220!
+全时-1: 010-58084288 (PWD: 71037450/71037523)
+
+VPN地址：https://vpn.shanhe.com
+VPN账号：yeesuanAI0111
+VPN密码：jl@012345
+
+济南集群vpn账号
+VPN账号：yeesuan07   密码：&(L^$Zrb#'u5K4BW 网关：183.95.195.117:2000 
+ssh hujunchao@10.1.0.27
+密码jvnchaod02_234
+rsync -avz -e "ssh -p 10022" UniData.SFT.200W.240415_test.jsonl hujunchao@183.95.195.117:/fl-ift/med/hujunchao/datasets/unigpt_instruction/
+
+友谊医院VPN
+easy-connect 连接信息
+地址：https://36.110.98.130:9443/
+账号：wangpengyu
+密码：900416tian@
+堡垒机：
+wangpengyu
+900416Tian@
+Tian@900416
+大模型服务器:/dev/yzs/model_path
+VDI:900416Tian@，锁屏密码：123
+
+
+todesk
+Jvnchaod02_
+
+阿里云灵积服务 API-KEY sk-39204ca0f48f4279a80846112795ed63
+阿里云docker hub密码：jvnchaod02**
+
+
+hhhcj4884@gmail.com
+
+wandb api-eky: a8c36862fcba114094e1b9e21c27ff17c45a8236
+langsmith api-eky: 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
+
+华为云账号：hw098106787
+
+高德API 2654e2fa035be16e9a495bee25cf437e	
+高德获取天气：https://restapi.amap.com/v3/weather/weatherInfo?key=2654e2fa035be16e9a495bee25cf437e&city=%E6%9C%9D%E9%98%B3%E5%8C%BA
+
+XTernimal仓库密码：jvnchaod02**
+
+本地dify临时api key: app-oXneUDvPQ6HhGH7DH3bto3wk
+
+example@qq.com
+root_123*
